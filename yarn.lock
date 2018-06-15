@@ -590,12 +590,6 @@
   dependencies:
     redux "4.0.0"
 
-"@rematch/persist@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@rematch/persist/-/persist-0.2.1.tgz#2e072a1389ccab9f0ad80a85f174139db2a3dcfb"
-  dependencies:
-    redux-persist "^5.4.0"
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -3746,10 +3740,6 @@ recursive-copy@2.0.6:
     pify "^2.3.0"
     promise "^7.0.1"
     slash "^1.0.0"
-
-redux-persist@^5.4.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
 
 redux@4.0.0, redux@^4.0.0:
   version "4.0.0"

@@ -28,10 +28,7 @@ class MainMenu extends Component {
         </div>
         <div className={`navbar-menu${this.state.active ? ' is-active' : ''}`}>
           <div className='navbar-start'>
-            <Link href='/gifts' prefetch><a className='navbar-item'>Magasin</a></Link>
-            <Link href='/hours' prefetch><a className='navbar-item'>Heures</a></Link>
-            <div className='navbar-item is-hidden-touch'>|</div>
-            <Link href='/admin' prefetch><a className='navbar-item'>Admin</a></Link>
+            <Link href='/about' prefetch><a className='navbar-item'>À propos</a></Link>
           </div>
           <div className='navbar-end'>
             <Auth />
