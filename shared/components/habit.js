@@ -15,7 +15,11 @@ class Habit extends Component {
     this.onSubmitDefault = this.onSubmitDefault.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.state = { ggg: '', messageType: 'is-info' }
-    this.worker = setupFSM(this)
+    this.clickFSM = setupFSM(this)
+  }
+
+  punch () {
+    console.log('PUNCH', this.state.ggg, this.props.i)
   }
 
   handleChange (event) {
@@ -26,7 +30,7 @@ class Habit extends Component {
     event.preventDefault()
     // skip click on form fields
     if (event.type === 'click' && this.state.messageType === 'is-info' && typeof event.target.value !== 'undefined') { return }
-    this.worker.handle('click')
+    this.clickFSM()
   }
 
   render () {
