@@ -14,7 +14,7 @@ class Habit extends Component {
     super(props)
     this.onSubmitDefault = this.onSubmitDefault.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.state = { ggg: '', messageType: 'is-info' }
+    this.state = { countdown: 0, ggg: '', messageType: 'is-info' }
     this.clickFSM = setupFSM(this)
   }
 
@@ -38,7 +38,16 @@ class Habit extends Component {
     return <div className='column is-half-mobile is-one-third-tablet is-one-quarter-desktop'>
       <article title={titles[this.state.messageType]} onClick={this.onSubmitDefault} className={`message ${this.state.messageType}`}>
         <div className='message-header'>
-          <p>{title}</p>
+          <div className='columns'>
+            <div className='column'>
+              {title}
+            </div>
+            {this.state.countdown
+              ? <div className='column is-narrow'>
+                {' '}<small><i>undo ({this.state.countdown}s)</i></small>
+              </div>
+              : ''}
+          </div>
         </div>
         <div className='message-body'>
           {children}

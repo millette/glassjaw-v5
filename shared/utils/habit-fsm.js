@@ -3,21 +3,35 @@
 import { configure } from 'finity'
 
 const setup = (self) => {
-  const ready = () => self.setState({ readonly: false, messageType: 'is-info' })
+  let timer
+  const timeout = 30
+
+  const ready = () => {
+    clearInterval(timer)
+    self.setState({ countdown: 0, readonly: false, messageType: 'is-info' })
+  }
 
   const confirm = () => {
     self.punch()
-    self.setState({ ggg: '', messageType: 'is-success' })
+    clearInterval(timer)
+    self.setState({ countdown: 0, ggg: '', messageType: 'is-success' })
   }
 
-  const punched = () => self.setState({ readonly: true, messageType: 'is-warning' })
+  const punched = () => {
+    self.setState({ countdown: timeout, readonly: true, messageType: 'is-warning' })
+    timer = setInterval(() => {
+      const countdown = --self.state.countdown
+      self.setState({ countdown })
+      if (!countdown) { clearInterval(timer) }
+    }, 1000)
+  }
 
   const wrkr = configure()
     .initialState('ready')
     .on('click').transitionTo('punched').withAction(punched)
     .state('punched')
     .on('click').transitionTo('ready').withAction(ready)
-    .onTimeout(30000).transitionTo('confirmed').withAction(confirm)
+    .onTimeout(timeout * 1000).transitionTo('confirmed').withAction(confirm)
     .state('confirmed')
     .on('click').transitionTo('ready').withAction(ready)
     .onTimeout(3000).transitionTo('ready').withAction(ready)
