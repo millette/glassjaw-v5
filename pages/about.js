@@ -6,7 +6,7 @@ import { initStore } from '../shared/store'
 import withRematch from '../shared/utils/withRematch'
 
 const About = () => <Fragment>
-  <Header title='Accueil' />
+  <Header title='À propos' />
   <section className='section'>
     <div className='container'>
       <div className='content'>

@@ -1,8 +1,9 @@
 'use strict'
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Link from 'next/link'
 import Auth from './auth'
+import { connect } from 'react-redux'
 
 class MainMenu extends Component {
   constructor (props) {
@@ -16,6 +17,13 @@ class MainMenu extends Component {
   }
 
   render () {
+    const userMenu = this.props.auth.name
+      ? <Fragment>
+        <div className='navbar-item is-hidden-touch'>|</div>
+        <Link href='/punch' prefetch><a className='navbar-item'>Punch</a></Link>
+      </Fragment>
+      : ''
+
     return <nav className='navbar is-primary' role='navigation' aria-label='main navigation'>
       <div className='container'>
         <div className='navbar-brand'>
@@ -29,6 +37,7 @@ class MainMenu extends Component {
         <div className={`navbar-menu${this.state.active ? ' is-active' : ''}`}>
           <div className='navbar-start'>
             <Link href='/about' prefetch><a className='navbar-item'>À propos</a></Link>
+            {userMenu}
           </div>
           <div className='navbar-end'>
             <Auth />
@@ -39,4 +48,8 @@ class MainMenu extends Component {
   }
 }
 
-export default MainMenu
+const mapState = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapState)(MainMenu)
