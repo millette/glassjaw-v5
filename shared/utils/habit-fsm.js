@@ -2,25 +2,24 @@
 
 import { configure } from 'finity'
 
-const setup = (self) => {
+const setupFSM = (self, timeout = 30) => {
   let timer
-  const timeout = 30
 
   const ready = () => {
     clearInterval(timer)
-    self.setState({ countdown: 0, readonly: false, messageType: 'is-info' })
+    self.setState({ countdown: false, readonly: false, messageType: 'is-info' })
   }
 
   const confirm = () => {
     self.punch()
     clearInterval(timer)
-    self.setState({ countdown: 0, ggg: '', messageType: 'is-success' })
+    self.setState({ countdown: false, ggg: '', messageType: 'is-success' })
   }
 
   const punched = () => {
     self.setState({ countdown: timeout, readonly: true, messageType: 'is-warning' })
     timer = setInterval(() => {
-      const countdown = --self.state.countdown
+      const countdown = --self.state.countdown || false
       self.setState({ countdown })
       if (!countdown) { clearInterval(timer) }
     }, 1000)
@@ -40,4 +39,4 @@ const setup = (self) => {
   return wrkr.handle.bind(wrkr, 'click')
 }
 
-export default setup
+export default setupFSM

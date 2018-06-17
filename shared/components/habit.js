@@ -14,7 +14,7 @@ class Habit extends Component {
     super(props)
     this.onSubmitDefault = this.onSubmitDefault.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.state = { countdown: 0, ggg: '', messageType: 'is-info' }
+    this.state = { countdown: false, ggg: '', messageType: 'is-info' }
     this.clickFSM = setupFSM(this)
   }
 
@@ -22,9 +22,7 @@ class Habit extends Component {
     console.log('PUNCH', this.state.ggg, this.props.i)
   }
 
-  handleChange (event) {
-    this.setState({ ggg: event.target.value })
-  }
+  handleChange (event) { this.setState({ ggg: event.target.value }) }
 
   onSubmitDefault (event) {
     event.preventDefault()
@@ -34,7 +32,7 @@ class Habit extends Component {
   }
 
   render () {
-    const { children, title = 'Punchable' } = this.props
+    const { description = 'À faire', title = 'Punchable' } = this.props
     return <div className='column is-half-mobile is-one-third-tablet is-one-quarter-desktop'>
       <article title={titles[this.state.messageType]} onClick={this.onSubmitDefault} className={`message ${this.state.messageType}`}>
         <div className='message-header'>
@@ -43,14 +41,13 @@ class Habit extends Component {
               {title}
             </div>
             {this.state.countdown
-              ? <div className='column is-narrow'>
+              && <div className='column is-narrow'>
                 {' '}<small><i>undo ({this.state.countdown}s)</i></small>
-              </div>
-              : ''}
+              </div>}
           </div>
         </div>
         <div className='message-body'>
-          {children}
+          <p className={description === 'À faire' ? 'is-italic' : undefined}>{description}</p>
           <form onSubmit={this.onSubmitDefault}>
             <div className='field'>
               <div className='control'>
