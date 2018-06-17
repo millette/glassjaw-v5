@@ -14,19 +14,19 @@ class Habit extends Component {
     super(props)
     this.onSubmitDefault = this.onSubmitDefault.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.state = { countdown: false, ggg: '', messageType: 'is-info' }
+    this.state = { ggg: '', messageType: 'is-info' }
     this.clickFSM = setupFSM(this)
   }
 
   punch () {
-    console.log('PUNCH', this.state.ggg, this.props.i)
+    this.props.add({ ggg: this.state.ggg, i: this.props.i })
   }
 
   handleChange (event) { this.setState({ ggg: event.target.value }) }
 
   onSubmitDefault (event) {
     event.preventDefault()
-    // skip click on form fields
+    // skip punch on form fields
     if (event.type === 'click' && this.state.messageType === 'is-info' && typeof event.target.value !== 'undefined') { return }
     this.clickFSM()
   }
@@ -40,10 +40,9 @@ class Habit extends Component {
             <div className='column'>
               {title}
             </div>
-            {this.state.countdown
-              && <div className='column is-narrow'>
-                {' '}<small><i>undo ({this.state.countdown}s)</i></small>
-              </div>}
+            {this.state.countdown && <div className='column is-narrow'>
+              {' '}<small><i>undo ({this.state.countdown}s)</i></small>
+            </div>}
           </div>
         </div>
         <div className='message-body'>

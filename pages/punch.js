@@ -15,11 +15,17 @@ const Punch = (props) => <Fragment>
           <div className='content'>
             <div className='columns'>
               <div className='column'>
-                <Habits auth={props.auth} />
+                <Habits add={props.add} punchables={props.punchables} />
               </div>
-              <div className='column is-narrow'>
-                <h2>Asrtola</h2>
-                <pre>{JSON.stringify(props.auth, null, '  ')}</pre>
+              <div className='column is-one-fifth'>
+                <h2>{Math.min(5, props.punches.length)} derniers punches</h2>
+                <ol>
+                  {props.punches.slice(0, 5).map((x, i) => {
+                    return <li key={i}>
+                      <b>{props.punchables[x.i].title} (#{x.i})</b> {x.ggg && <i>{x.ggg}</i>} {new Date(x.time).toString()}
+                    </li>
+                  })}
+                </ol>
               </div>
             </div>
           </div>
@@ -29,8 +35,17 @@ const Punch = (props) => <Fragment>
   </section>
 </Fragment>
 
-const mapState = state => ({
-  auth: state.auth
+const mapState = (state) => ({
+  auth: state.auth,
+  punchables: state.punchables,
+  punches: state.punches
 })
 
-export default withRematch(initStore, mapState)(Punch)
+const mapDispatch = ({ punches: { add } }) => ({
+  add: (payload) => {
+    if (!payload.ggg) { delete payload.ggg }
+    return add(payload)
+  }
+})
+
+export default withRematch(initStore, mapState, mapDispatch)(Punch)
