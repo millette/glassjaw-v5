@@ -12,21 +12,19 @@ const Punch = (props) => <Fragment>
     <div className='container is-fluid'>
       {props.auth.name
         ? <Fragment>
-          <div className='content'>
-            <div className='columns'>
-              <div className='column'>
-                <Habits add={props.add} punchables={props.punchables} />
-              </div>
-              <div className='column is-one-fifth'>
-                <h2>{Math.min(5, props.punches.length)} derniers punches</h2>
-                <ol>
-                  {props.punches.slice(0, 5).map((x, i) => {
-                    return <li key={i}>
-                      <b>{props.punchables[x.i].title} (#{x.i})</b> {x.ggg && <i>{x.ggg}</i>} {new Date(x.time).toString()}
-                    </li>
-                  })}
-                </ol>
-              </div>
+          <div className='columns'>
+            <div className='column'>
+              <Habits add={props.add} boo={props.boo} punchables={props.punchables} />
+            </div>
+            <div className='column is-one-fifth'>
+              <h2 className='title is-3'>{Math.min(5, props.punches.length)} derniers punches</h2>
+              <ol>
+                {props.punches.slice(0, 5).map((x, i) => {
+                  return <li key={i}>
+                    <b>{props.punchables[x.i].title} (#{x.i})</b> {x.ggg && <i>{x.ggg}</i>} {new Date(x.time).toString()}
+                  </li>
+                })}
+              </ol>
             </div>
           </div>
         </Fragment>
@@ -41,10 +39,13 @@ const mapState = (state) => ({
   punches: state.punches
 })
 
-const mapDispatch = ({ punches: { add } }) => ({
+const mapDispatch = ({ punchables: { add: boo }, punches: { add } }) => ({
   add: (payload) => {
     if (!payload.ggg) { delete payload.ggg }
     return add(payload)
+  },
+  boo: () => {
+    return boo({temp: true})
   }
 })
 
