@@ -4,7 +4,7 @@ import React, { Fragment } from 'react'
 
 const BuildLink = ({ buildId }) => {
   if (buildId === '-') { return <i>dev</i> }
-  const buildUrl = 'https://github.com/millette/glassjaw-v5/commit/' + buildId
+  const buildUrl = 'https://github.com/millette/glassjaw-v5/tree/' + buildId
 
   return <Fragment>
     commit: <a target='_blank' href={buildUrl}>{buildId}</a>
