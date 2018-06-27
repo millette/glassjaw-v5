@@ -9,15 +9,18 @@ import Habits from '../shared/components/habits'
 class Punch extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      temp: false
-    }
+    this.state = { }
     this.handleNewPunchable = this.handleNewPunchable.bind(this)
+    this.handleNewHabit = this.handleNewHabit.bind(this)
   }
 
   handleNewPunchable (ev) {
-    console.log('New habit, coming up!')
-    this.setState({ temp: !this.state.temp })
+    this.setState({ temp: true })
+  }
+
+  handleNewHabit (o, ev) {
+    this.setState({ temp: false })
+    this.props.boo(o)
   }
 
   render () {
@@ -29,7 +32,7 @@ class Punch extends Component {
             ? <Fragment>
               <div className='columns'>
                 <div className='column'>
-                  <Habits temp={this.state.temp} add={this.props.add} boo={this.handleNewPunchable} punchables={this.props.punchables} />
+                  <Habits newHabit={this.handleNewHabit} temp={this.state.temp} add={this.props.add} boo={this.handleNewPunchable} punchables={this.props.punchables} />
                 </div>
                 <div className='column is-one-fifth'>
                   <h2 className='title is-3'>{Math.min(5, this.props.punches.length)} derniers punches</h2>
@@ -61,9 +64,7 @@ const mapDispatch = ({ punchables: { add: boo }, punches: { add } }) => ({
     if (!payload.ggg) { delete payload.ggg }
     return add(payload)
   },
-  boo: () => {
-    return boo({temp: true})
-  }
+  boo: (payload) => boo(payload)
 })
 
 export default withRematch(initStore, mapState, mapDispatch)(Punch)

@@ -2,6 +2,11 @@
 
 import React, { Component } from 'react'
 
+const defaults = {
+  title: 'Titre',
+  description: 'Description'
+}
+
 class TempHabit extends Component {
   constructor (props) {
     super(props)
@@ -12,39 +17,46 @@ class TempHabit extends Component {
   }
 
   onBlur (type, event) {
+    const val = event.target.innerText.trim()
+    if (!val) { return }
+    if (val === defaults[type]) { return }
     const obj = {}
-    obj[type] = event.target.innerText
+    obj[type] = val
     this.setState(obj)
   }
 
   onEdit (event) {
     console.log('CONFIRM', this.state)
+    this.props.newHabit(this.state, event)
   }
 
   render () {
-    const { description = 'À faire', title = 'Punchable' } = this.props
-    return <div className='column is-half-mobile is-one-third-tablet is-one-quarter-desktop'>
-      <article className='message box'>
-        <form>
-          <div className='message-header'>
-            <div className='columns'>
-              <div onBlur={this.onBlurTitle} suppressContentEditableWarning contentEditable className='column is-italic'>
-                {title}
+    return <div className='column is-half'>
+      <div className='box'>
+        <article className='message'>
+          <form>
+            <div className='message-header'>
+              <div className='columns'>
+                <div onBlur={this.onBlurTitle} suppressContentEditableWarning contentEditable className='column is-italic'>
+                  {defaults.title}
+                </div>
               </div>
             </div>
-          </div>
-          <div className='message-body'>
-            <p onBlur={this.onBlurDescription} suppressContentEditableWarning contentEditable className={description === 'À faire' ? 'is-italic' : undefined}>{description}</p>
-          </div>
-          <div className='message-footer'>
-            <div className='field'>
-              <div className='control is-expanded'>
-                <button onClick={this.onEdit} type='button' className='button is-success is-fullwidth'>CONFIRM</button>
+            <div className='message-body'>
+              <p onBlur={this.onBlurDescription} suppressContentEditableWarning contentEditable className={this.state.description === 'À faire' ? 'is-italic' : undefined}>
+              {defaults.description}
+            </p>
+            </div>
+            <div className='message-footer'>
+              <div className='field'>
+                <div className='control is-expanded'>
+                  <button onClick={this.onEdit} type='button' className='button is-success is-fullwidth'>CONFIRM</button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </article>
+          </form>
+        </article>
+      </div>
     </div>
   }
 }

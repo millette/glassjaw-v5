@@ -12,8 +12,8 @@ const Habits = (props) => <Fragment>
     {props.boo && <button onClick={props.boo} className='button is-primary'>Ajouter une habitude</button>}
   </h3>
   <div className='columns is-mobile is-multiline'>
+    {props.temp ? <TempHabit newHabit={props.newHabit} /> : null}
     {props.punchables.map((x, i) => <Habit add={props.add} key={i} i={i} {...x} />)}
-    {props.temp ? <TempHabit /> : null}
   </div>
 </Fragment>
 
