@@ -44,8 +44,8 @@ class TempHabit extends Component {
             </div>
             <div className='message-body'>
               <p onBlur={this.onBlurDescription} suppressContentEditableWarning contentEditable className={this.state.description === 'À faire' ? 'is-italic' : undefined}>
-              {defaults.description}
-            </p>
+                {defaults.description}
+              </p>
             </div>
             <div className='message-footer'>
               <div className='field'>
