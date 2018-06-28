@@ -26,7 +26,6 @@ class TempHabit extends Component {
   }
 
   onEdit (event) {
-    console.log('CONFIRM', this.state)
     this.props.newHabit(this.state, event)
   }
 

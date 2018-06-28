@@ -1,6 +1,5 @@
 'use strict'
 
-// import Finity, { configure } from 'finity'
 import { configure } from 'finity'
 
 const setupFSM = (self, timeout = 30) => {
@@ -36,7 +35,6 @@ const setupFSM = (self, timeout = 30) => {
     }, 1000)
   }
 
-  // const wrkr1 = configure()
   const wrkr = configure()
     .initialState('ready')
     .on('click').transitionTo('punched').withAction(punched)
@@ -49,12 +47,8 @@ const setupFSM = (self, timeout = 30) => {
     .on('click').transitionTo('ready').withAction(ready)
     .onTimeout(3000).transitionTo('ready').withAction(ready)
     .on('componentWillUnmount').internalTransition().withAction(stop)
-    // .global()
-    // .onStateExit((state) => console.log(`Exiting state '${state}'`))
-    // .getConfig()
     .start()
 
-  // const wrkr = Finity.start(wrkr1)
   return {
     click: wrkr.handle.bind(wrkr, 'click'),
     stop: wrkr.handle.bind(wrkr, 'componentWillUnmount')

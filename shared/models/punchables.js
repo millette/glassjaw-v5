@@ -13,9 +13,6 @@ export default {
     }
   ],
   reducers: {
-    add: (state, payload) => {
-      console.log('ADD PUNCHABLES', payload)
-      return [...state, payload]
-    }
+    add: (state, payload) => [...state, payload]
   }
 }
