@@ -8,7 +8,6 @@
     "build": "standard && next build && next-build-id",
     "export": "next export",
     "start": "next start",
-    "now666": "now out --static --public --name vdt",
     "clean": "rm -fr out .next",
     "all": "git diff --quiet --ignore-submodules HEAD && standard && rm -fr out .next && next build && next-build-id && next export"
   },
